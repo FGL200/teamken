@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #videoElement {
+            width: 320px;
+            height: 240px;
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <p>Upload ID: </p>
+    <input type="file" id="imgUpload"><br>
+    <a href="./faceRecognition.html" id="reUpload" style="display: none;">Reupload ID</a>
+    <p style="color: red;">
+        <b>Before capturing</b>,
+        please remove any facial materials such as eye glass to improve recognition process
+    </p>
+    <div id="camera">
+        <video autoplay="true" id="videoElement"></video>
+        <button id="btn-capture">Capture</button>
+    </div>
+
+    <script src="./libraries/face-api.min.js"></script>
+    <script src="./js/faceRecognition.js"></script>
+</body>
+</html>
