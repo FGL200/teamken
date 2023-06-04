@@ -154,8 +154,9 @@ async function faceDetectionHandler(){
 
         results.forEach((result) => {
             if(String(result.label) === String("faceFound")){
-                IDResult.complete = true    ;
+                IDResult.complete = true;
                 IDResult.result = result;
+                faceDetedted = false;
             }else{
                 alert("Face did not match from ID, Please recapture or upload another ID");
                 faceDetedted = false;
@@ -167,8 +168,6 @@ async function faceDetectionHandler(){
         alert("Face Recognized from ID!");
         btnCapture.disabled = true;
         SetIDValue();
-    }else{
-        alert("Face did not match from ID, Please recapture or upload another ID");
     }
 }
 
