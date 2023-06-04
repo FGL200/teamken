@@ -186,7 +186,7 @@ function SetIDValue(){
             .then(response => response.json())
             .then(result => {
                 localStorage.setItem("OCR-" + i, JSON.stringify(result));
-                console.log(localStorage.getItem("OCR-" + i));
+                //console.log(localStorage.getItem("OCR-" + i));
                 OCR_VAL.push(result);
                 return i;
             })
@@ -195,7 +195,7 @@ function SetIDValue(){
                 console.log((parseInt(index) === parseInt(imgUpload.files.length - 1)));
                 if(parseInt(index) === parseInt(imgUpload.files.length - 1)){
                     document.getElementById("id-ocr-result").value = JSON.stringify(OCR_VAL);
-                    console.log(OCR_VAL)
+                    //console.log(OCR_VAL)
                 }
             })
             .catch(error => {
