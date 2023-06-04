@@ -191,8 +191,8 @@ function SetIDValue(){
                 return i;
             })
             .then((index)=>{
-                console.log("i=" + index);
-                console.log((parseInt(index) === parseInt(imgUpload.files.length - 1)));
+                //console.log("i=" + index);
+                //console.log((parseInt(index) === parseInt(imgUpload.files.length - 1)));
                 if(parseInt(index) === parseInt(imgUpload.files.length - 1)){
                     document.getElementById("id-ocr-result").value = JSON.stringify(OCR_VAL);
                     //console.log(OCR_VAL)
