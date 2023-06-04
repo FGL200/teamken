@@ -11,9 +11,14 @@ let finalResult = {complete: false, result:null};
 Promise.all([
     faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
     faceapi.nets.faceLandmark68Net.loadFromUri('./models'), 
-    faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
-    faceapi.nets.tinyFaceDetector.loadFromUri('/models')
-]).then(startVideo);
+    faceapi.nets.ssdMobilenetv1.loadFromUri('./models'),
+    faceapi.nets.tinyFaceDetector.loadFromUri('./models')
+]).then(()=>{
+    const element = document.createElement("p");
+    element.setAttribute("id", "id-validation-result")
+    element.style.textAlign = "center";
+    document.querySelector(".step1").appendChild(element);
+}).catch(err=>{alert("Error: " + err);});
 
 function loadImgAsPromise(img){
     const labels = ["faceFound"];
@@ -31,14 +36,26 @@ imgUpload.addEventListener("change", async (e)=>{
     const image = await faceapi.bufferToImage(imgUpload.files[0]);
     const detection = await faceapi.detectAllFaces(image);
 
+    const element = document.querySelector("#id-validation-result");
+
     if(detection.length > 0){
+        element.innerHTML = "Reading your ID...";
+
         imgUploadProperties = await loadImgAsPromise(image);
-        alert("Face detected in file, start capturing!");
+        alert("You may now start capturing!");
+
+        element.style.color = "#29b198";
+        element.style.fontWeight = "bold"
+        element.innerHTML = "ID uploaded!";
+
         imgUpload.style.display = "none"
         document.querySelector("#reUpload").style.display = "block"
         imgUploadReady = true;
+        startVideo();
     }else{
-        alert("No Face detected in ID, reupload another ID");
+        element.style.color = "red";
+        element.innerHTML = "Invalid ID";
+        alert("Invalid ID, please reupload another ID");
         imgUploadReady = false;
     }
 });

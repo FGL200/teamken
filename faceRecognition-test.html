@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Custom CSS files-->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+    <!-- Font library -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lexend"
+    />
+    <!-- Website Favicon -->
+    <link rel="Icon" href="/images/Converge-Favicon.png" />
+    <title>Main menu</title>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar-top">
+      <!-- Wala pa po link ang HREF attribute -->
+      <a href="#">
+        <img src="images/s.png" alt="Converge Logo" width="200" height="66" />
+      </a>
+    </nav>
+
+    <!-- main container for section 1 & 2 -->
+    <section class="main">
+      <!-- Section Number1 -->
+      <section class="step1">
+        <p class="step-header">Step 1. Upload your ID.</p>
+        <p style="color: #226357">
+          Submit a photo of your front and back IDs for secure verification.<br /><br />
+        </p>
+
+        <p style="color: #29b198; font-weight: bold">
+          Drag and drop files inside the box or
+        </p>
+        <input
+          class="fileSubmit"
+          type="file"
+          id="imgUpload"
+          multiple
+          accept="image/png, image/jpeg"
+          onchange="validateFiles(this)"
+        />
+
+        <a href="./faceRecognition.html" id="reUpload" style="display: none"
+          >Reupload ID</a
+        >
+      </section>
+
+      <!-- Section Number2 -->
+      <section class="step2">
+        <p class="step-header">Step 2. Take a selfie.</p>
+        <p style="color: #226357">
+          For a smoother verification process, kindly remove any facial
+          materials, like eyeglasses, before taking the photo.
+        </p>
+        <video autoplay="true" id="videoElement"></video>
+        <div class="btn-container">
+          <button id="btn-capture">Capture</button>
+        </div>
+      </section>
+    </section>
+
+    <script src="./libraries/face-api.min.js"></script>
+    <script src="./js/faceRecognition.js"></script>
+    <script src="./js/filecheck.js"></script>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+}
+
+.navbar-top {
+    width: auto;
+    height: auto;
+    padding: 10px 10px 10px 30px;
+    background-color: #240a43;
+}
+
+.main {
+    height: auto;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    font-family: 'Lexend';
+}
+
+.step1,
+.step2 {
+    box-sizing: border-box;
+    width: 50%;
+    height: auto;
+    padding: 0px 60px 0px 60px;
+    flex-direction: column;
+    display: flex;
+}
+
+.step-header {
+    color: #226357;
+    margin-bottom: 0px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+/* File drop/submit area */
+.fileSubmit {
+    padding: 20px;
+    border-radius: 5px;
+    border: 2px dashed #29b198;
+    height: 50%; /* to be revised */
+}
+
+/* video container */
+#videoElement {
+    aspect-ratio: 16 / 9;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #29b198;
+}
+
+/* button div container */
+.btn-container {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0px;
+}
+
+/* button */
+#btn-capture {
+    height: 44px;
+    width: 130px;
+    border: none;
+    padding: 5px 20px;
+    background-color: #29b198;
+    border-radius: 5px;
+    color: #ffffff;
+}

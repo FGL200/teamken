@@ -1,0 +1,12 @@
+@media (max-width: 928px) {
+    .step1, .step2 {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .step1, .step2 {
+        padding: 20px;
+    }
+}
