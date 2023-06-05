@@ -35,9 +35,9 @@ function synergy($surname, $firstname, $middlename, $email, $phone, $reference) 
         This email serves as confirmation that we have received your application for Converge. <br>
         Click the link below if you confirm, else disregard this email. <br><br>
 
-        Thank you!
+        Thank you! <br><br>
 
-        <a href='http://localhost/teamken/php/confirmation.php?token=$reference'> Confirm Application </a>
+        <a href='http://localhost/teamken/php/confirmation.php?token=$reference'> Click here to Confirm Application </a>
     ";
 
     $mail -> Body = $email_template;
