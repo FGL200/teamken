@@ -18,23 +18,18 @@ function admin_verify($name, $email, $verify_token) {
     $mail -> SMTPAuth = true;
 
     $mail -> Host = 'smtp.gmail.com';
-    $mail -> Username = 'cdssa@rtu.edu.ph';
-    $mail -> Password = 'rizaltech';
+    $mail -> Username = 'synergyteamken@gmail.com';
+    $mail -> Password = 'synergyteamken101';
     $mail -> SMTPSecure = 'tls';
     $mail -> Port = 587;
 
-    $mail -> setFrom('cdssa@rtu.edu.ph', 'noreply');
+    $mail -> setFrom('synergyteamken@gmail.com', 'noreply');
     $mail -> addAddress($email);
 
     $mail -> isHTML(true);
     $mail -> Subject = 'Email Verification from CDSSA';
 
-    $email_template = "
-    <h2>You have registered with CDSSA</h2>
-    <h5>Verify your email address to login by clicking the link below.</h5>
-    <br/><br/>
-    <a href='http://localhost/cdssa/backend/admin-verify.php?token=$verify_token'> Click Here </a>
-";
+    $email_template = "";
 
     $mail -> Body = $email_template;
     $mail -> send();
