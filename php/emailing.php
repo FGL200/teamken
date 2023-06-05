@@ -30,12 +30,24 @@ function synergy($surname, $firstname, $middlename, $email, $phone, $reference) 
     $mail -> Subject = 'Confirmation Email from Converge';
 
     $email_template = "
-        Good day, $firstname $middlename $surname! <br><br>
+        Good day, Mr./Ms./Mrs. $surname! <br><br>
 
-        This email serves as confirmation that we have received your application for Converge. <br>
-        Click the link below if you confirm, else disregard this email. <br><br>
+        This email serves as confirmation that we have received your application for Converge. <br><br>
 
         Thank you! <br><br>
+
+        These are the information you provided. <br><br>
+
+        Surname: $surname <br>
+        First Name: $firstname <br>
+        Middle Name: $middlename <br>
+        Birthday: $birthday <br>
+        Address: $address <br><br>
+
+        Reference Number: $reference <br><br>
+
+        Click the link below if you confirm, else disregard this email. <br>
+
 
         <a href='http://localhost/teamken/php/confirmation.php?token=$reference'> Click here to Confirm Application </a>
     ";
@@ -49,7 +61,7 @@ if(isset($_POST['apply_btn'])) {
     $surname = $_POST['sname'];
     $firstname = $_POST['fname'];
     $middlename = $_POST['mname'];
-    $birthday = $_POST['bday'];
+    $birthday = $_POST['birthday'];
     $address = $_POST['address'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
