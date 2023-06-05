@@ -18,8 +18,8 @@ function synergy($surname, $firstname, $middlename, $email, $phone, $reference) 
     $mail -> SMTPAuth = true;
 
     $mail -> Host = 'smtp.gmail.com';
-    $mail -> Username = 'synergyteamken@gmail.com';
-    $mail -> Password = 'synergyteamken101';
+    $mail -> Username = 'ceignacio@rtu.edu.ph';
+    $mail -> Password = 'cha01000011';
     $mail -> SMTPSecure = 'tls';
     $mail -> Port = 587;
 
@@ -27,10 +27,9 @@ function synergy($surname, $firstname, $middlename, $email, $phone, $reference) 
     $mail -> addAddress($email);
 
     $mail -> isHTML(true);
-    $mail -> Subject = 'Email Verification from CDSSA';
+    $mail -> Subject = 'Confirmation Email from Converge';
 
     $email_template = "
-        <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css' rel='stylesheet'>
         Good day, $firstname $middlename $surname! <br><br>
 
         This email serves as confirmation that we have received your application for Converge. <br>
@@ -38,7 +37,7 @@ function synergy($surname, $firstname, $middlename, $email, $phone, $reference) 
 
         Thank you!
 
-        <center><a class='btn btn-primary' href='http://localhost/teamken/php/confirmation.php?token=$reference'> Confirm Application </a></center>
+        <a href='http://localhost/teamken/php/confirmation.php?token=$reference'> Confirm Application </a>
     ";
 
     $mail -> Body = $email_template;
@@ -47,7 +46,7 @@ function synergy($surname, $firstname, $middlename, $email, $phone, $reference) 
 
 
 if(isset($_POST['apply_btn'])) {
-    $surname = $_POST['surname'];
+    $surname = $_POST['sname'];
     $firstname = $_POST['fname'];
     $middlename = $_POST['mname'];
     $birthday = $_POST['bday'];
@@ -55,7 +54,7 @@ if(isset($_POST['apply_btn'])) {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
 
-    $reference = md5(rand(15));
+    $reference = md5(rand());
 
     $valphone = (strlen($phone) < 11 || strlen($phone) > 11);
 
