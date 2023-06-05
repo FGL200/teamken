@@ -2,6 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: auto;
+    font-family: 'Lexend';
 }
 
 .navbar-top {
@@ -19,7 +20,6 @@ html, body {
     display: flex;
     flex-wrap: wrap;
     background-color: #ffffff;
-    font-family: 'Lexend';
 }
 
 .step1,
@@ -39,13 +39,37 @@ html, body {
     font-weight: bold;
 }
 
-
-/* File drop/submit area */
 .fileSubmit {
-    padding: 20px;
+    position: relative;
+    color: white;
+    padding: 10px 20px;
     border-radius: 5px;
+    cursor: pointer;
+    z-index: 9999;
+    transition: cubic-bezier(0.18, 0.89, 0.32, 1.28) 0.3s, transform 0.2s ease-out;
+}
+
+/* Hide the default file input by opacity only*/
+#imgUpload {
+    opacity: 0;
+}
+
+/* Custom file input text overlay */
+#btnLabel {
+    position: relative;
+    transform: translate(0px, -42px);
+    z-index: 0;
     border: 2px dashed #29b198;
-    height: 50%; /* to be revised */
+    padding: 10px 20px;
+    background: none;
+    color: #29b198;
+}
+
+#imgUpload:hover~label {
+    border: 2px dashed #1f896b;
+    color: #1f896b;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 /* video container */
@@ -63,6 +87,7 @@ html, body {
     display: flex;
     justify-content: center;
     margin: 10px 0px;
+
 }
 
 /* button */
@@ -74,4 +99,10 @@ html, body {
     background-color: #29b198;
     border-radius: 5px;
     color: #ffffff;
+    font-weight: bold;
+    transition: cubic-bezier(0.18, 0.89, 0.32, 1.28) 0.3s, transform 0.2s ease-out;
+}
+
+#btn-capture:hover {
+    background-color: #1f896b;
 }
