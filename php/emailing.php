@@ -11,7 +11,7 @@ require '../vendor/autoload.php';
 
 // EMAIL CONFIRMATION
 
-function synergy($surname, $firstname, $middlename, $email, $phone, $reference) {
+function synergy($surname, $firstname, $middlename, $birthday, $address, $email, $phone, $reference) {
     $mail = new PHPMailer(true);
 
     $mail -> isSMTP();
@@ -38,18 +38,22 @@ function synergy($surname, $firstname, $middlename, $email, $phone, $reference) 
 
         These are the information you provided. <br><br>
 
-        Surname: $surname <br>
-        First Name: $firstname <br>
-        Middle Name: $middlename <br>
-        Birthday: $birthday <br>
-        Address: $address <br><br>
+        Surname: <b> $surname </b><br>
+        First Name: <b> $firstname </b><br>
+        Middle Name: <b> $middlename </b><br>
+        Birthday: <b> $birthday </b><br>
+        Address: <b> $address </b><br><br>
 
-        Reference Number: $reference <br><br>
+        Reference Number: <b>$reference </b><br><br>
 
-        Click the link below if you confirm, else disregard this email. <br>
+        Click the link below if you confirm. <br>
+
+        <a href='http://localhost/teamken/php/confirmation.php?token=$reference'> Click here to Confirm Application </a> <br><br>
 
 
-        <a href='http://localhost/teamken/php/confirmation.php?token=$reference'> Click here to Confirm Application </a>
+        Click the link below if it is not you. (Delete informations from database) <Br>
+
+        <a href='http://localhost/teamken/php/deny-confirmation.php?token=$reference'> Click here to Deny Application </a>
     ";
 
     $mail -> Body = $email_template;
@@ -105,7 +109,7 @@ if(isset($_POST['apply_btn'])) {
         $query_run = mysqli_query($con, $query);
 
         if ($query_run) {
-            synergy($surname, $firstname, $middlename, $email, $phone, $reference);
+            synergy($surname, $firstname, $middlename, $birthday, $address, $email, $phone, $reference);
             $_SESSION['status'] = "Application Successful. Check you Email for confirmation.";
             $_SESSION['status_code'] = "success";
             header("Location: emailtester.php");
