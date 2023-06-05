@@ -88,6 +88,7 @@ imgUpload.addEventListener("change", async (e)=>{
        element.innerHTML = "ID uploaded!";
 
        imgUpload.style.display = "none"
+       btnLabel.style.display = "none"
        document.querySelector("#reUpload").style.display = "block"
        imgUploadReady = true;
        startVideo();
