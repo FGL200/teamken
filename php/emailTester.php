@@ -26,7 +26,7 @@ session_start();
                             <input type="text" name="bday" class="form-control" placeholder="Birthdate:" required>
                             <textarea type="text" name="address" class="form-control" placeholder="Address:" required></textarea><br>
 
-                            <input type="email" name="email" class="form-control" placeholder="Email: name@example.com" required>
+                            <input type="text" name="email" class="form-control" placeholder="Email: name@example.com" required>
                             <input type="number" name="phone" class="form-control" placeholder="Phone: 09xxxxxxxxxx" required>
                         </div>
                         <div class="form-group">
