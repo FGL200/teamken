@@ -23,11 +23,11 @@ session_start();
                             <input type="text" name="sname" class="form-control" placeholder="Surname:" required>
                             <input type="text" name="fname" class="form-control" placeholder="First Name:" required>
                             <input type="text" name="mname" class="form-control" placeholder="Middle Name:" required>
+                            <input type="number" name="age" class="form-control" placeholder="Age:" required>
                             <input type="text" name="birthday" class="form-control" placeholder="Birthday:" required>
                             <textarea type="text" name="address" class="form-control" placeholder="Address:" required></textarea><br>
 
                             <input type="text" name="email" class="form-control" placeholder="Email: name@example.com" required>
-                            <input type="number" name="phone" class="form-control" placeholder="Phone: 09xxxxxxxxxx" required>
                         </div>
                         <div class="form-group">
                             <button type="submit" name="apply_btn" class="btn btn-primary">Submit Application</button>
