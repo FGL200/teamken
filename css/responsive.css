@@ -21,7 +21,7 @@
 
 
 
-/* form.html */
+/* faceRecognition.html - form */
 @media (max-width: 768px) {
     .form-row {
         flex-direction: column;
@@ -30,6 +30,13 @@
 
     .input-wrapper {
         margin: 10px 0px;
+    }
+
+    .input-wrapper input,
+    .input-wrapper select,
+    .input-wrapper textarea {
+        width: 240px !important;
+
     }
 }
 
