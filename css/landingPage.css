@@ -82,3 +82,52 @@ a {
     color: #fff;
     border: 2px solid #fff;
 }
+
+
+
+/* Modal for terms and conditions */
+
+/* Style for the modal and overlay */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px 50px;
+    margin: 20px;
+    border-radius: 5px;
+    z-index: 10000;
+    width: 70%;
+    height: 70%;
+    overflow-y: auto;
+}
+
+.modal-box li ol li {
+    padding-left: 20px;
+    list-style: none;
+}
+
+
+/* Additional styling */
+.modal-content {
+    margin-bottom: 20px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
