@@ -11,7 +11,7 @@ require '../vendor/autoload.php';
 
 // EMAIL CONFIRMATION
 
-function synergy($surname, $firstname, $middlename, $age, $birthday, $address, $email, $reference, $confirmation_token) {
+function synergy($surname, $firstname, $middlename, $age, $birthday, $sex, $address, $zipcode, $email, $reference, $confirmation_token) {
     $mail = new PHPMailer(true);
 
     $mail -> isSMTP();
@@ -43,7 +43,9 @@ function synergy($surname, $firstname, $middlename, $age, $birthday, $address, $
         Middle Name: <b> $middlename </b><br>
         Age: <b> $age </b><br>
         Birthday: <b> $birthday </b><br>
-        Address: <b> $address </b><br><br>
+        Sex: <b> $sex </b><br>
+        Address: <b> $address </b><br>
+        Zip Code: <b> $zipcode </b><br><br>
 
         Reference Number: <b>$reference </b><br><br>
 
@@ -63,12 +65,14 @@ function synergy($surname, $firstname, $middlename, $age, $birthday, $address, $
 
 
 if(isset($_POST['apply_btn'])) {
-    $surname = $_POST['sname'];
-    $firstname = $_POST['fname'];
-    $middlename = $_POST['mname'];
+    $surname = $_POST['last-name'];
+    $firstname = $_POST['first-name'];
+    $middlename = $_POST['middle-name'];
     $age = $_POST['age'];
-    $birthday = $_POST['birthday'];
+    $birthday = date('Y-m-d', strtotime($_POST['date-of-birth']));
+    $sex = $_POST['sex'];
     $address = $_POST['address'];
+    $zipcode = $_POST['zip-code'];
     $email = $_POST['email'];
     $reference = rand(1000000000, 9999999999);
 
@@ -90,11 +94,11 @@ if(isset($_POST['apply_btn'])) {
     }
 
     else {
-        $query = "INSERT INTO users (surname, firstname, middlename, age, birthday, address, email, reference, confirmation_token) VALUES ('$surname', '$firstname', '$middlename', '$age', '$birthday', '$address', '$email', '$reference', '$confirmation_token')";
+        $query = "INSERT INTO users (surname, firstname, middlename, age, birthday, sex, address, zip_code, email, reference, confirmation_token) VALUES ('$surname', '$firstname', '$middlename', '$age', '$birthday', '$sex', '$address', '$zipcode', '$email', '$reference', '$confirmation_token')";
         $query_run = mysqli_query($con, $query);
 
         if ($query_run) {
-            synergy($surname, $firstname, $middlename, $age, $birthday, $address, $email, $reference, $confirmation_token);
+            synergy($surname, $firstname, $middlename, $age, $birthday, $sex, $address, $zipcode, $email, $reference, $confirmation_token);
             $_SESSION['status'] = "Application Successful. Check you Email for confirmation.";
             $_SESSION['status_code'] = "success";
             header("Location: emailtester.php");
