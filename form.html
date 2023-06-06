@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="container">
-      <form>
+      <form action="php/emailing.php" method="POST">
         <div class="form-row">
           <div class="input-wrapper">
             <label for="first-name">First Name</label>
@@ -56,10 +56,14 @@
             <label for="zip-code">Zip Code</label>
             <input type="text" id="zip-code" name="zip-code" required />
           </div>
+          <div class="input-wrapper">
+            <label for="email">Email Address</label>
+            <input type="text" id="email" name="email" required />
+          </div>
         </div>
         <div class="form-row">
           <div class="submit-btn">
-            <button type="submit">Submit</button>
+            <button type="submit" name="apply_btn">Submit</button>
           </div>
         </div>
       </form>
