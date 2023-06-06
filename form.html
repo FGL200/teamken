@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/form.css" />
+    <title>Form</title>
+  </head>
+  <body>
+    <div class="container">
+      <form>
+        <div class="form-row">
+          <div class="input-wrapper">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first-name" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="middle-name">Middle Name</label>
+            <input type="text" id="middle-name" name="middle-name" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last-name" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="input-wrapper">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="date-of-birth">Date of Birth</label>
+            <input type="date" id="date-of-birth" name="date-of-birth" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="sex">Sex</label>
+            <select id="sex" name="sex" required>
+              <option value="" disabled selected>Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="input-wrapper">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="4" required></textarea>
+          </div>
+          <div class="input-wrapper">
+            <label for="zip-code">Zip Code</label>
+            <input type="text" id="zip-code" name="zip-code" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="submit-btn">
+            <button type="submit">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script src="./js/form.js"></script>
+  </body>
+</html>
