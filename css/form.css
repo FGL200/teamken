@@ -3,78 +3,78 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  .container {
+}
+
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
-  
-  form {
+}
+
+form {
     width: auto;
     background-color: #fff;
     padding: 30px;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-row {
+}
+
+.form-row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-  }
-  
-  .input-wrapper {
+}
+
+.input-wrapper {
     flex: 1;
     margin-right: 10px;
-  }
-  
-  .input-wrapper:last-child {
+}
+
+.input-wrapper:last-child {
     margin-right: 0;
-  }
-  
-  .input-wrapper label {
+}
+
+.input-wrapper label {
     display: block;
     margin-bottom: 5px;
     font-size: 14px;
     color: #888;
-  }
-  
-  .input-wrapper input,
-  .input-wrapper select,
-  .input-wrapper textarea {
+}
+
+.input-wrapper input,
+.input-wrapper select,
+.input-wrapper textarea {
     width: 100%;
     padding: 15px;
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ccc;
-  }
-  
-  .input-wrapper input:focus,
-  .input-wrapper select:focus,
-  .input-wrapper textarea:focus {
+}
+
+.input-wrapper input:focus,
+.input-wrapper select:focus,
+.input-wrapper textarea:focus {
     outline: none;
     border-color: #29b198;
-  }
-  
-  .input-wrapper input:focus + label,
-  .input-wrapper select:focus + label,
-  .input-wrapper textarea:focus + label,
-  .input-wrapper input:not(:placeholder-shown) + label,
-  .input-wrapper select:not(:placeholder-shown) + label,
-  .input-wrapper textarea:not(:placeholder-shown) + label {
+}
+
+.input-wrapper input:focus+label,
+.input-wrapper select:focus+label,
+.input-wrapper textarea:focus+label,
+.input-wrapper input:not(:placeholder-shown)+label,
+.input-wrapper select:not(:placeholder-shown)+label,
+.input-wrapper textarea:not(:placeholder-shown)+label {
     color: #333;
-  }
-  
-  .submit-btn {
+}
+
+.submit-btn {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-  }
-  
-  .submit-btn button {
+}
+
+.submit-btn button {
     padding: 10px 20px;
     background-color: #29b198;
     color: #fff;
@@ -83,9 +83,8 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .submit-btn button:hover {
+}
+
+.submit-btn button:hover {
     background-color: #1f896b;
-  }
-  
+}
