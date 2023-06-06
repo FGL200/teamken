@@ -107,6 +107,12 @@ html, body {
     list-style-type: disc;
 }
 
+#id-reminder-container {
+    color: #43327e;
+    padding: 10px;
+    background-color: #eee8ec;
+    border-radius: 5px;
+}
 
 .id-reminder {
     font-family: 'Lexend';

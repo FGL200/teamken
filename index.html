@@ -1,12 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Ken's Project</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/landingPage.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lexend"
+    />
+    <title>Landing Page</title>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar-top">
+      <!-- HREF attribute currently empty. -->
+      <a href="#">
+        <img
+          src="images/converge_ICT_logo_SVG.svg"
+          alt="Converge Logo"
+          width="200"
+          height="66"
+        />
+      </a>
+    </nav>
+    <div class="main">
+      <p class="header">Fiber Connected in 4 Hours</p>
+      <p class="sub-text">Streamlining the customer application process</p>
+
+      <div class="container">
+        <h3>TERMS AND CONDITIONS</h3>
+        <form action="faceRecognition.html">
+          <label for="terms-checkbox">
+            <input
+              type="checkbox"
+              id="terms-checkbox"
+              name="terms-checkbox"
+              required
+            />
+            I have read and agree to the <a href="#">Terms and Conditions.</a>
+          </label>
+
+          <button class="button" id="proceed-button" disabled>Proceed</button>
+        </form>
+      </div>
+
+      <!-- Button JS -->
+      <script>
+        var checkbox = document.getElementById("terms-checkbox");
+        var proceedButton = document.getElementById("proceed-button");
+
+        checkbox.addEventListener("change", function () {
+          proceedButton.disabled = !checkbox.checked;
+        });
+      </script>
+    </div>
+  </body>
 </html>

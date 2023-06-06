@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend';
+}
+
+.navbar-top {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    padding: 10px 10px 10px 30px;
+    top: 0;
+}
+
+body {
+    width: auto;
+    height: 100vh;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgb(36, 10, 67), rgba(0, 0, 0, 0)), url(../images/mesh-bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.header {
+    background: -webkit-linear-gradient(180deg, #53e5ca, #eee8ec, #53e5ca);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 32px;
+    padding: 10px;
+}
+
+.sub-text {
+    color: #fff;
+    padding: 0px 10px;
+}
+
+/* Terms and condition */
+.container {
+    position: absolute;
+    width: auto;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    bottom: 20px;
+    color: #29b198;
+}
+
+/* link color */
+a {
+    color: #29b198;
+}
+
+/* button's style */
+.button {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    padding: 5px 20px;
+    border: 2px solid #29b198;
+    color: #29b198;
+    background: none;
+    transition: cubic-bezier(0.18, 0.89, 0.32, 1.28) 0.3s, transform 0.2s ease-out;
+}
+
+.button[disabled] {
+    color: #32856f;
+    border: 2px solid #32856f;
+}
+
+.button:not([disabled]):hover {
+    color: #fff;
+    border: 2px solid #fff;
+}
