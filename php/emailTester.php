@@ -30,7 +30,7 @@ session_start();
                             <input type="text" name="email" class="form-control" placeholder="Email: name@example.com" required>
                         </div>
                         <div class="form-group">
-                            <button type="submit" name="apply_btn" class="btn btn-primary">Submit Application</button>
+                            <button type="submit" name="" class="btn btn-primary">Submit Application</button>
                         </div>
                         </form>
                     </div>
