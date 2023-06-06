@@ -1,4 +1,4 @@
-/* Steps section */
+/* faceRecognition.html - steps section */
 @media (max-width: 928px) {
     .step1, .step2 {
         width: 100%;
@@ -12,9 +12,31 @@
     }
 }
 
-/* Id list */
+/* faceRecognition.html - id list */
 @media (max-width: 768px) {
     .id-column {
         flex-basis: 100%;
+    }
+}
+
+
+
+/* form.html */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        margin: 0;
+    }
+
+    .input-wrapper {
+        margin: 10px 0px;
+    }
+}
+
+
+/* index.html - modal */
+@media (max-width: 768px) {
+    .modal-box {
+        font-size: 12px;
     }
 }
