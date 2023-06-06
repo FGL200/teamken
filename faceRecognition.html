@@ -8,10 +8,14 @@
     <!-- Custom CSS files-->
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/responsive.css" />
-    <!-- Font library -->
+    <!-- Font and icon library -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Lexend"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <!-- Website Favicon -->
     <link rel="Icon" href="/images/Converge-Favicon.png" />
@@ -50,6 +54,35 @@
         <label for="imgUpload" class="fileSubmit" id="btnLabel"
           >Choose Images</label
         >
+        <div class="fa fa-id-card-o">
+          <span class="idHeader"> Accepted IDs:</span>
+        </div>
+        <div class="id-list">
+          <div class="id-column">
+            <ul>
+              <li>Driver's License</li>
+              <li>UMID</li>
+              <li>Philippine Postal ID</li>
+              <li>Passport</li>
+              <li>SSS ID</li>
+            </ul>
+          </div>
+          <div class="id-column">
+            <ul>
+              <li>PRC ID</li>
+              <li>Voter's ID</li>
+              <li>HDMF (Pag-Ibig) ID</li>
+              <li>Philsys ID/ePhilID</li>
+            </ul>
+          </div>
+          <p class="fa fa-info-circle" style="color: #226357">
+            <span class="id-reminder">
+              To ensure accurate identification, please submit your IDs in the
+              correct position by aligning them vertically. Make sure that both
+              the text and your face are clearly visible on the IDs.</span
+            >
+          </p>
+        </div>
 
         <a href="./faceRecognition.html" id="reUpload" style="display: none"
           >Reupload ID</a

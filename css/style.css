@@ -72,6 +72,49 @@ html, body {
     cursor: pointer;
 }
 
+
+/* Start of: ID list styles */
+.id-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+
+.fa-id-card-o {
+    color: #29b198;
+}
+
+.idHeader {
+    font-size: 16px;
+    font-family: 'Lexend';
+    color: #29b198;
+    font-weight: bold;
+}
+
+.id-column {
+    flex-basis: 48%;
+    margin-bottom: 0;
+    width: auto;
+    height: auto;
+    color: #226357;
+}
+
+.id-column ul {
+    padding: 0px 20px;
+    margin: 0;
+    list-style-type: disc;
+}
+
+
+.id-reminder {
+    font-family: 'Lexend';
+}
+
+/* End of: ID list styles */
+
+
 /* video container */
 #videoElement {
     aspect-ratio: 16 / 9;
