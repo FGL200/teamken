@@ -11,7 +11,7 @@ require '../vendor/autoload.php';
 
 // EMAIL CONFIRMATION
 
-function synergy($surname, $firstname, $middlename, $birthday, $address, $email, $phone, $reference) {
+function synergy($surname, $firstname, $middlename, $age, $birthday, $address, $email, $reference, $confirmation_token) {
     $mail = new PHPMailer(true);
 
     $mail -> isSMTP();
@@ -41,6 +41,7 @@ function synergy($surname, $firstname, $middlename, $birthday, $address, $email,
         Surname: <b> $surname </b><br>
         First Name: <b> $firstname </b><br>
         Middle Name: <b> $middlename </b><br>
+        Age: <b> $age </b><br>
         Birthday: <b> $birthday </b><br>
         Address: <b> $address </b><br><br>
 
@@ -48,12 +49,12 @@ function synergy($surname, $firstname, $middlename, $birthday, $address, $email,
 
         Click the link below if you confirm. <br>
 
-        <a href='http://localhost/teamken/php/confirmation.php?token=$reference'> Click here to Confirm Application </a> <br><br>
+        <a href='http://localhost/teamken/php/confirmation.php?token=$confirmation_token'> Click here to Confirm Application </a> <br><br>
 
 
         Click the link below if it is not you. (Delete informations from database) <Br>
 
-        <a href='http://localhost/teamken/php/deny-confirmation.php?token=$reference'> Click here to Deny Application </a>
+        <a href='http://localhost/teamken/php/deny-confirmation.php?token=$confirmation_token'> Click here to Deny Application </a>
     ";
 
     $mail -> Body = $email_template;
@@ -65,29 +66,19 @@ if(isset($_POST['apply_btn'])) {
     $surname = $_POST['sname'];
     $firstname = $_POST['fname'];
     $middlename = $_POST['mname'];
+    $age = $_POST['age'];
     $birthday = $_POST['birthday'];
     $address = $_POST['address'];
     $email = $_POST['email'];
-    $phone = $_POST['phone'];
+    $reference = rand(1000000000, 9999999999);
 
-    $reference = md5(rand());
-
-    $valphone = (strlen($phone) < 11 || strlen($phone) > 11);
+    $confirmation_token = md5(rand());
 
     $check_email_query = "SELECT email FROM users WHERE email='$email' LIMIT 1";
     $check_email_query_run = mysqli_query($con, $check_email_query);
 
-    $check_phone_query = "SELECT phone FROM users WHERE phone='$phone' LIMIT 1";
-    $check_phone_query_run = mysqli_query($con, $check_phone_query);
-
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $_SESSION['status'] = "Invalid Email Address.";
-        $_SESSION['status_code'] = "error";
-        header("Location: emailtester.php");
-    }
-
-    else if ($valphone) {
-        $_SESSION['status'] = "Invalid Phone Number.";
         $_SESSION['status_code'] = "error";
         header("Location: emailtester.php");
     }
@@ -98,18 +89,12 @@ if(isset($_POST['apply_btn'])) {
         header("Location: emailtester.php");
     }
 
-    else if (mysqli_num_rows($check_phone_query_run) > 0) {
-        $_SESSION['status'] = "Phone Number has already exists.";
-        $_SESSION['status_code'] = "error";
-        header("Location: emailtester.php");
-    }
-
     else {
-        $query = "INSERT INTO users (surname, firstname, middlename, birthday, address, email, phone, reference) VALUES ('$surname', '$firstname', '$middlename', '$birthday', '$address', '$email', '$phone', '$reference')";
+        $query = "INSERT INTO users (surname, firstname, middlename, age, birthday, address, email, reference, confirmation_token) VALUES ('$surname', '$firstname', '$middlename', '$age', '$birthday', '$address', '$email', '$reference', '$confirmation_token')";
         $query_run = mysqli_query($con, $query);
 
         if ($query_run) {
-            synergy($surname, $firstname, $middlename, $birthday, $address, $email, $phone, $reference);
+            synergy($surname, $firstname, $middlename, $age, $birthday, $address, $email, $reference, $confirmation_token);
             $_SESSION['status'] = "Application Successful. Check you Email for confirmation.";
             $_SESSION['status_code'] = "success";
             header("Location: emailtester.php");
