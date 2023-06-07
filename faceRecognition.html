@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/responsive.css" />
     <link rel="stylesheet" href="./css/form.css" />
-    <link rel="stylesheet" href="./css/emailvalidation.css">
+    <link rel="stylesheet" href="./css/emailvalidation.css" />
     <!-- Font and icon library -->
     <link
       rel="stylesheet"
@@ -20,7 +20,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <!-- Website Favicon -->
-    <link rel="Icon" href="/images/Converge-Favicon.png" />
+    <link rel="Icon" href="./images/Converge-Favicon.png" />
     <title>Verification | Converge</title>
   </head>
 
@@ -60,7 +60,10 @@
           onchange="validateFiles(this)"
         />
         <label for="imgUpload" class="fileSubmit" id="btnLabel"
-          >Choose Images</label
+          >Choose Images
+          <span style="font-size: 12px"
+            ><i>(1MB max per picture)</i></span
+          ></label
         >
         <div class="fa fa-id-card-o">
           <span class="idHeader"> Accepted IDs:</span>
@@ -111,8 +114,6 @@
       </section>
     </section>
 
-
-    
     <!-- Form container -->
     <div class="container" style="display: none">
       <form id="myForm" action="php/emailing.php" method="POST">
@@ -169,7 +170,13 @@
           </div>
           <div class="input-wrapper">
             <label for="email">Email Address</label>
-            <input type="text" id="email" name="email" onsubmit="return validateEmail()" required />
+            <input
+              type="text"
+              id="email"
+              name="email"
+              onsubmit="return validateEmail()"
+              required
+            />
           </div>
         </div>
         <!-- Row 4 -->
