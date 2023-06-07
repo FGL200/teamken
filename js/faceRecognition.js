@@ -2,12 +2,25 @@ const imgUpload = document.querySelector("#imgUpload");
 const video = document.querySelector("#videoElement");
 const btnCapture = document.querySelector("#btn-capture");
 
-let imgUploadProperties;
+let imgUploadProperties = null;
 let imgUploadReady = false;
 let faceDetedted = false;
+let OCR_VALUE = null;
+const imgStructure = [];
 
 const IDResult = {complete: false, result:null};
 let IDIndex = -1;
+
+let FORM = {
+    fname : null,
+    mname : null,
+    lname : null,
+    age : null,
+    bdate : null,
+    sex : null,
+    address : null,
+    zip : null
+};
 
 Promise.all([
     faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
@@ -24,6 +37,7 @@ Promise.all([
     
     const hiddenInput = document.createElement("input");
     hiddenInput.setAttribute("id", "id-ocr-result")
+    hiddenInput.setAttribute("name", "ocr-result")
     hiddenInput.setAttribute("type", "hidden")
     hiddenInput.setAttribute("value", "{}")
     document.querySelector(".main").appendChild(hiddenInput);
@@ -42,25 +56,33 @@ function loadImgAsPromise(img){
 }
 
 imgUpload.addEventListener("change", async (e)=>{
-    const ImageStructure = [];
+    for(let index = 0; index < imgUpload.files.length; index++){
+        const file = imgUpload.files[index];
+    
+        if (file.size > 1024 * 1024) { // Check if file size is more than 1MB (1MB = 1024 * 1024 bytes)
+          alert('File size exceeds 1MB.');
+          imgUpload.value = ''; // Clear the input value if the file size is too large
+          return;
+        }
+    }
 
     for(let index = 0; index < imgUpload.files.length; index++){
         const image = await faceapi.bufferToImage(imgUpload.files[index]);
         const detection = await faceapi.detectAllFaces(image);
         
         if(detection.length > 0)
-            ImageStructure.push({hasFace: true});
+            imgStructure.push({hasFace: true});
         else
-            ImageStructure.push({hasFace: false});
+            imgStructure.push({hasFace: false});
     }
     
-    if(ImageStructure.length < 1){
+    if(imgStructure.length < 1){
         imgUpload.value = "";
         return;
     }else{
         let counter = 0;
-        for(let i = 0; i < ImageStructure.length; i++){
-            if(ImageStructure[i].hasFace){
+        for(let i = 0; i < imgStructure.length; i++){
+            if(imgStructure[i].hasFace){
                 IDIndex = i;
                 counter ++;
             }
@@ -81,7 +103,7 @@ imgUpload.addEventListener("change", async (e)=>{
        element.innerHTML = "Reading your ID...";
 
        imgUploadProperties = await loadImgAsPromise(image);
-       alert("You may now start capturing!");
+       //alert("You may now start capturing!");
 
        element.style.color = "#29b198";
        element.style.fontWeight = "bold"
@@ -99,6 +121,15 @@ imgUpload.addEventListener("change", async (e)=>{
        imgUploadReady = false;
     }
 });
+
+function stopVideo(){
+    const mediaStream = video.srcObject;
+    if (mediaStream) {
+        const videoTrack = mediaStream.getVideoTracks()[0];
+        videoTrack.stop();
+        video.srcObject = null;
+    }
+}
 
 function startVideo(){
     navigator.mediaDevices
@@ -131,7 +162,7 @@ btnCapture.addEventListener("click", async (e)=>{
         }
     
     }else{
-        alert("Please upload img first");
+        alert("Please upload an ID first");
     }
 });
 
@@ -161,6 +192,10 @@ async function faceDetectionHandler(){
             }else{
                 alert("Face did not match from ID, Please recapture or upload another ID");
                 faceDetedted = false;
+
+                // Bypass ID Validation
+                IDResult.complete = true;
+                IDResult.result = result;
             }    
         });
     }
@@ -168,39 +203,221 @@ async function faceDetectionHandler(){
     if(IDResult.complete){
         alert("Face Recognized from ID!");
         btnCapture.disabled = true;
+        btnCapture.innerHTML = "Validating...";
         SetIDValue();
     }
 }
 
 function SetIDValue(){
-    const OCR_VAL = [];
-    for(let i = 0; i < imgUpload.files.length; i++){
-        const formData = new FormData();
-        formData.append('image', imgUpload.files[i]);
+    const OCR = [];
+    //for(let i = 0; i < imgUpload.files.length; i++){
 
-        fetch('https://api.api-ninjas.com/v1/imagetotext', {
+        // get the image file
+        const fileToUpload = imgUpload.files[IDIndex] 
+        
+        // API Key
+        const API_KEY = "K85037790488957";
+
+        var formData = new FormData();
+        formData.append("file", fileToUpload);
+        //formData.append("url", "URL-of-Image-or-PDF-file");
+        formData.append("language", "eng");
+        formData.append("apikey", API_KEY);
+        formData.append("isOverlayRequired", true);
+
+        fetch('https://api.ocr.space/parse/image', {
             method: 'POST',
-            headers: { 'x-api-key': 'Bsb6tj0moXhWqmCu01A7FQ==AVEYlPiR3kHQlvtr' },
             body: formData
         })
-            .then(response => response.json())
-            .then(result => {
-                localStorage.setItem("OCR-" + i, JSON.stringify(result));
-                //console.log(localStorage.getItem("OCR-" + i));
-                OCR_VAL.push(result);
-                return i;
-            })
-            .then((index)=>{
-                //console.log("i=" + index);
-                //console.log((parseInt(index) === parseInt(imgUpload.files.length - 1)));
-                if(parseInt(index) === parseInt(imgUpload.files.length - 1)){
-                    document.getElementById("id-ocr-result").value = JSON.stringify(OCR_VAL);
-                    //console.log(OCR_VAL)
-                }
-            })
-            .catch(error => {
-                alert(error);
-            });
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert('OCR request failed. Page will auto reload');
+                window.location.reload();
+            }
+        })
+        .then((ocrParsedResult) => {
+            const result = {
+                parsedResults : ocrParsedResult["ParsedResults"],
+                ocrExitCode : ocrParsedResult["OCRExitCode"],
+                isErroredOnProcessing : ocrParsedResult["IsErroredOnProcessing"],
+                errorMessage : ocrParsedResult["ErrorMessage"]
+            }
 
-    }
+            OCR.push(result.parsedResults[0].TextOverlay.Lines)
+            return true;
+        })
+        .then(index => {
+            //if(parseInt(index) === parseInt(imgUpload.files.length - 1)){
+            if(index){
+                stopVideo();
+            
+                document.querySelector(".main").style.display = "none";
+                document.querySelector(".container").style.display = "flex";
+                
+                while(!OCR_VALUE){
+                    OCR_VALUE = OCR;
+                }
+                   
+                AutoFillField();
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+    //}
 }
+
+function AutoFillField(){
+    console.log(imgStructure);
+    console.log("idIndex=" + IDIndex);
+    console.log(OCR_VALUE);
+
+    if(GetKindOfID() === String("University_ID")){
+        FORM.fname = String(
+            OCR_VALUE[0][4].Words[1].WordText
+            );
+        FORM.lname = String(
+            OCR_VALUE[0][4].Words[0].WordText
+            );
+        FORM.mname = String(
+            OCR_VALUE[0][4].Words[2].WordText
+            );
+        FORM.age = null;
+        FORM.bdate = null;
+        FORM.sex = null;
+        FORM.address = null;
+        FORM.zip = null;
+
+    } else if (GetKindOfID() === String("PRC_ID")){
+        FORM.fname = String(
+            OCR_VALUE[0][5].LineText
+            );
+        FORM.lname = String(
+            OCR_VALUE[0][4].LineText
+            );
+        FORM.mname = String(
+            OCR_VALUE[0][6].LineText
+            );
+        FORM.age = null;
+        FORM.bdate = null;
+        FORM.sex = null;
+        FORM.address = null;
+        FORM.zip = null;
+
+    } else if(GetKindOfID() === String("PASSPORT_ID")){
+        FORM.fname = String(
+            OCR_VALUE[0][7].LineText
+            );
+        FORM.lname = String(
+            OCR_VALUE[0][6].LineText
+            );
+        FORM.mname = String(
+            OCR_VALUE[0][9].LineText
+            );
+        FORM.age = null;
+        FORM.bdate = Date(
+            OCR_VALUE[0][11].LineText
+            );
+        FORM.sex = null;
+        FORM.address = null;
+        FORM.zip = null;
+    }
+    else{
+        alert("ID provided not yet supported. Auto fill did not run!")
+    }
+
+    PutToForm();
+}
+
+function PutToForm(){
+
+    if(FORM.fname) document.getElementById("first-name").value = FORM.fname;
+    if(FORM.mname) document.getElementById("middle-name").value = FORM.mname;
+    if(FORM.lname) document.getElementById("last-name").value = FORM.lname;
+    if(FORM.age) document.getElementById("age").value = FORM.age;
+    if(FORM.bdate) document.getElementById("date-of-birth").value = FORM.bdate;
+    if(FORM.sex) document.getElementById("sex").value = FORM.sex;
+    if(FORM.address) document.getElementById("address").value = FORM.address;
+    if(FORM.zip) document.getElementById("zip-code").value = FORM.zip;
+}
+
+function GetKindOfID(){
+
+    for(let i = 0; i < OCR_VALUE.length; i++){
+        for(let j = 0; j < OCR_VALUE[i].length; j++){
+            if(String(OCR_VALUE[i][j].LineText).includes("UNIVERSITY")){
+                return String("University_ID");
+            }
+        }
+    }
+
+    for(let i = 0; i < OCR_VALUE.length; i++){
+        for(let j = 0; j < OCR_VALUE[i].length; j++){
+            if(String(OCR_VALUE[i][j].LineText).includes("PASSPORT")){
+                return String("PASSPORT_ID");
+            }
+            if(String(OCR_VALUE[i][j].LineText).includes("PASAPORTE/")){
+                return String("PASSPORT_ID");
+            }
+        }
+    }
+
+    for(let i = 0; i < OCR_VALUE.length; i++){
+        for(let j = 0; j < OCR_VALUE[i].length; j++){
+            if(String(OCR_VALUE[i][j].LineText).includes("PROFESSIONAL REGULATION COMMISSION")){
+                return String("PRC_ID");
+            }
+        }
+    }
+
+    return String("Other_ID");
+}
+
+
+/*
+fetch('https://api.api-ninjas.com/v1/imagetotext', {
+    method: 'POST',
+    headers: { 'x-api-key': 'Bsb6tj0moXhWqmCu01A7FQ==AVEYlPiR3kHQlvtr' },
+    body: formData
+})
+    .then(response => response.json())
+    .then(result => {
+        localStorage.setItem("OCR-" + i, JSON.stringify(result));
+        //console.log(localStorage.getItem("OCR-" + i));
+        OCR_VAL.push(result);
+        return i;
+    })
+    .then((index)=>{
+        //console.log("i=" + index);
+        //console.log((parseInt(index) === parseInt(imgUpload.files.length - 1)));
+        if(parseInt(index) === parseInt(imgUpload.files.length - 1)){
+            //window.location.href = "./form.html";
+
+            //console.log(OCR_VAL)
+            //document.getElementById("id-ocr-result").value = JSON.stringify(OCR_VAL);
+
+            //alert(document.querySelector("input[name='ocr-result']").value)
+            
+            //const btn = document.createElement("input");
+            //btn.style.display = "none";
+            //btn.setAttribute("type", "submit");
+
+            //document.querySelector(".main").appendChild(btn);
+            //btn.click();
+
+            stopVideo();
+            
+            OCR_VALUE = OCR_VAL;
+            document.querySelector(".main").style.display = "none";
+            document.querySelector(".form-container").style.display = "flex";
+            
+            AutoFillField();
+        }
+    })
+    .catch(error => {
+        alert(error);
+    });
+*/
