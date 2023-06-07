@@ -194,8 +194,8 @@ async function faceDetectionHandler(){
                 faceDetedted = false;
 
                 // Bypass ID Validation
-                IDResult.complete = true;
-                IDResult.result = result;
+                //IDResult.complete = true;
+                //IDResult.result = result;
             }    
         });
     }
