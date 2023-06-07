@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/responsive.css" />
     <link rel="stylesheet" href="./css/form.css" />
+    <link rel="stylesheet" href="./css/emailvalidation.css">
     <!-- Font and icon library -->
     <link
       rel="stylesheet"
@@ -114,7 +115,7 @@
     
     <!-- Form container -->
     <div class="container" style="display: none">
-      <form action="php/emailing.php" method="POST">
+      <form id="myForm" action="php/emailing.php" method="POST">
         <!-- Row 1 -->
         <div class="form-row">
           <div class="input-wrapper">
@@ -168,7 +169,7 @@
           </div>
           <div class="input-wrapper">
             <label for="email">Email Address</label>
-            <input type="text" id="email" name="email" required />
+            <input type="text" id="email" name="email" onsubmit="return validateEmail()" required />
           </div>
         </div>
         <!-- Row 4 -->
@@ -183,5 +184,6 @@
     <script src="./js/faceRecognition.js"></script>
     <script src="./js/filecheck.js"></script>
     <script src="./js/form.js"></script>
+    <script src="./js/emailvalidation.js"></script>
   </body>
 </html>

@@ -81,34 +81,19 @@ if(isset($_POST['apply_btn'])) {
     $check_email_query = "SELECT email FROM users WHERE email='$email' LIMIT 1";
     $check_email_query_run = mysqli_query($con, $check_email_query);
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $_SESSION['status'] = "Invalid Email Address.";
-        $_SESSION['status_code'] = "error";
-        header("Location: emailtester.php");
-    }
+    $query = "INSERT INTO users (surname, firstname, middlename, age, birthday, sex, address, zip_code, email, reference, confirmation_token) VALUES ('$surname', '$firstname', '$middlename', '$age', '$birthday', '$sex', '$address', '$zipcode', '$email', '$reference', '$confirmation_token')";
+    $query_run = mysqli_query($con, $query);
 
-    else if (mysqli_num_rows($check_email_query_run) > 0) {
-        $_SESSION['status'] = "Email Address has already exists.";
-        $_SESSION['status_code'] = "error";
-        header("Location: emailtester.php");
+    if ($query_run) {
+        synergy($surname, $firstname, $middlename, $age, $birthday, $sex, $address, $zipcode, $email, $reference, $confirmation_token);
+        $_SESSION['status'] = "Application Successful!";
+        $_SESSION['code'] = "success";
+        header("Location: ../index.php");
     }
 
     else {
-        $query = "INSERT INTO users (surname, firstname, middlename, age, birthday, sex, address, zip_code, email, reference, confirmation_token) VALUES ('$surname', '$firstname', '$middlename', '$age', '$birthday', '$sex', '$address', '$zipcode', '$email', '$reference', '$confirmation_token')";
-        $query_run = mysqli_query($con, $query);
-
-        if ($query_run) {
-            synergy($surname, $firstname, $middlename, $age, $birthday, $sex, $address, $zipcode, $email, $reference, $confirmation_token);
-            $_SESSION['status'] = "Application Successful. Check you Email for confirmation.";
-            $_SESSION['status_code'] = "success";
-            header("Location: emailtester.php");
-        }
-
-        else {
-            $_SESSION['status'] = "Something went wrong.";
-            $_SESSION['status_code'] = "error";
-            header("Location: emailtester.php");
-        }
+        echo '<script>alert("Something went wrong.");</script>';
+        header("Location: ../index.html");
     }
 }
 
