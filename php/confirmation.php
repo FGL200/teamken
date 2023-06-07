@@ -19,14 +19,14 @@ if (isset($_GET['token'])) {
             if ($update_query_run) {
                 $_SESSION['status'] = "Application Confirmed.";
                 $_SESSION['status_code'] = "success";
-                header("Location: emailtester.php");
+                header("Location: ../index.php");
                 exit(0);
             }
             
             else {
                 $_SESSION['status'] = "Confirmation Error.";
                 $_SESSION['status_code'] = "error";
-                header("Location: emailtester.php");
+                header("Location: ../index.php");
                 exit(0);
             }
         }
@@ -34,7 +34,7 @@ if (isset($_GET['token'])) {
         else {
             $_SESSION['status'] = "Can't process request.";
             $_SESSION['status_code'] = "error";
-            header("Location: emailtester.php");
+            header("Location: ../index.php");
             exit(0);
         }
     }
@@ -42,7 +42,7 @@ if (isset($_GET['token'])) {
     else {
         $_SESSION['status'] = "Can't process request.";
         $_SESSION['status_code'] = "error";
-        header("Location: emailtester.php");
+        header("Location: ../index.php");
         exit(0);
     }
 }
@@ -50,7 +50,7 @@ if (isset($_GET['token'])) {
 else {
     $_SESSION['status'] = "Can't process request.";
     $_SESSION['status_code'] = "error";
-    header("Location: emailtester.php");
+    header("Location: ../index.php");
     exit(0);
 }
 
