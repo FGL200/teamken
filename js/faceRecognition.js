@@ -271,9 +271,9 @@ function SetIDValue(){
 }
 
 function AutoFillField(){
-    console.log(imgStructure);
-    console.log("idIndex=" + IDIndex);
-    console.log(OCR_VALUE);
+    // console.log(imgStructure);
+    // console.log("idIndex=" + IDIndex);
+    // console.log(OCR_VALUE);
 
     if(GetKindOfID() === String("University_ID")){
         FORM.fname = String(
@@ -308,6 +308,15 @@ function AutoFillField(){
         FORM.zip = null;
 
     } else if(GetKindOfID() === String("PASSPORT_ID")){
+
+        const rawDate = new Date(OCR_VALUE[0][11].LineText);
+        const BDate = {
+            y : rawDate.getFullYear(),
+            m : ('0' + (rawDate.getMonth() + 1)).slice(-2),
+            d : ('0' + rawDate.getDate()).slice(-2)
+        }
+        
+
         FORM.fname = String(
             OCR_VALUE[0][7].LineText
             );
@@ -318,9 +327,7 @@ function AutoFillField(){
             OCR_VALUE[0][9].LineText
             );
         FORM.age = null;
-        FORM.bdate = Date(
-            OCR_VALUE[0][11].LineText
-            );
+        FORM.bdate = `${BDate.y}-${BDate.m}-${BDate.d}`;
         FORM.sex = null;
         FORM.address = null;
         FORM.zip = null;
@@ -333,6 +340,8 @@ function AutoFillField(){
 }
 
 function PutToForm(){
+
+    console.log(FORM);
 
     if(FORM.fname) document.getElementById("first-name").value = FORM.fname;
     if(FORM.mname) document.getElementById("middle-name").value = FORM.mname;
@@ -375,49 +384,3 @@ function GetKindOfID(){
 
     return String("Other_ID");
 }
-
-
-/*
-fetch('https://api.api-ninjas.com/v1/imagetotext', {
-    method: 'POST',
-    headers: { 'x-api-key': 'Bsb6tj0moXhWqmCu01A7FQ==AVEYlPiR3kHQlvtr' },
-    body: formData
-})
-    .then(response => response.json())
-    .then(result => {
-        localStorage.setItem("OCR-" + i, JSON.stringify(result));
-        //console.log(localStorage.getItem("OCR-" + i));
-        OCR_VAL.push(result);
-        return i;
-    })
-    .then((index)=>{
-        //console.log("i=" + index);
-        //console.log((parseInt(index) === parseInt(imgUpload.files.length - 1)));
-        if(parseInt(index) === parseInt(imgUpload.files.length - 1)){
-            //window.location.href = "./form.html";
-
-            //console.log(OCR_VAL)
-            //document.getElementById("id-ocr-result").value = JSON.stringify(OCR_VAL);
-
-            //alert(document.querySelector("input[name='ocr-result']").value)
-            
-            //const btn = document.createElement("input");
-            //btn.style.display = "none";
-            //btn.setAttribute("type", "submit");
-
-            //document.querySelector(".main").appendChild(btn);
-            //btn.click();
-
-            stopVideo();
-            
-            OCR_VALUE = OCR_VAL;
-            document.querySelector(".main").style.display = "none";
-            document.querySelector(".form-container").style.display = "flex";
-            
-            AutoFillField();
-        }
-    })
-    .catch(error => {
-        alert(error);
-    });
-*/
