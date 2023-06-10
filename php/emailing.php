@@ -18,12 +18,12 @@ function synergy($surname, $firstname, $middlename, $age, $birthday, $sex, $addr
     $mail -> SMTPAuth = true;
 
     $mail -> Host = 'smtp.gmail.com';
-    $mail -> Username = 'ceignacio@rtu.edu.ph';
-    $mail -> Password = 'cha01000011';
+    $mail -> Username = 'yourEmail';
+    $mail -> Password = 'yourPassword';
     $mail -> SMTPSecure = 'tls';
     $mail -> Port = 587;
 
-    $mail -> setFrom('synergyteamken@gmail.com', 'noreply');
+    $mail -> setFrom('yourEmail', 'yourName(optional)');
     $mail -> addAddress($email);
 
     $mail -> isHTML(true);
@@ -92,8 +92,9 @@ if(isset($_POST['apply_btn'])) {
     }
 
     else {
-        echo '<script>alert("Something went wrong.");</script>';
-        header("Location: ../index.html");
+        $_SESSION['status'] = "Something went wrong.";
+        $_SESSION['code'] = "error";
+        header("Location: ../index.php");
     }
 }
 
