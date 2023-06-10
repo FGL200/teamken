@@ -23,7 +23,7 @@ function synergy($surname, $firstname, $middlename, $age, $birthday, $sex, $addr
     $mail -> SMTPSecure = 'tls';
     $mail -> Port = 587;
 
-    $mail -> setFrom('synergyteamken@gmail.com', 'noreply');
+    $mail -> setFrom('ceignacio@rtu.edu.ph', 'noreply');
     $mail -> addAddress($email);
 
     $mail -> isHTML(true);
